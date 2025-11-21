@@ -9,3 +9,7 @@ Integrantes:
 - Benito Fuentes
 - Rodrigo Molina
 - Sebastián Vergara
+
+Canva:
+
+https://www.canva.com/design/DAG5SBeOgSg/FOIAsQb8BFGI8xqiNrcXvw/edit?utm_content=DAG5SBeOgSg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
