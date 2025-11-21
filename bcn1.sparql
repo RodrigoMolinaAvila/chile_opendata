@@ -1,0 +1,19 @@
+PREFIX bcnbio: <http://datos.bcn.cl/ontologies/bcn-biographies#>
+PREFIX foaf:   <http://xmlns.com/foaf/0.1/>
+PREFIX dc:     <http://purl.org/dc/elements/1.1/>
+
+SELECT DISTINCT ?partido ?nombre
+                ?acronimo
+                ?id
+                ?anioFundacion
+                ?fechaFundacion
+WHERE {
+  ?partido a bcnbio:PoliticalParty ;
+           foaf:name ?nombre .
+
+  OPTIONAL { ?partido bcnbio:hasAcronym        ?acronimo . }
+  OPTIONAL { ?partido dc:identifier            ?id . }
+  OPTIONAL { ?partido bcnbio:hasFoundationYear ?anioFundacion . }
+  OPTIONAL { ?partido bcnbio:hasFoundationDate ?fechaFundacion . }
+}
+ORDER BY ?anioFundacion ?nombre

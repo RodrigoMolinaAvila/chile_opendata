@@ -1,0 +1,25 @@
+PREFIX bcnnorms: <http://datos.bcn.cl/ontologies/bcn-norms#>
+PREFIX rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc:       <http://purl.org/dc/elements/1.1/>
+PREFIX rdfs:     <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?norma ?id ?title
+                ?tipo ?nombreTipo
+                ?organizacion ?nombreOrganizacion
+                ?fechaPublicacion
+WHERE {
+  ?norma a bcnnorms:Norm ;
+         dc:identifier ?id ;
+         dc:title ?title ;
+         bcnnorms:type ?tipo ;
+         bcnnorms:createdBy ?organizacion .
+
+  ?tipo bcnnorms:hasName ?nombreTipo .
+  ?organizacion rdfs:label ?nombreOrganizacion .
+
+  OPTIONAL {
+    ?norma bcnnorms:hasVersion ?version .
+    ?version dc:date ?fechaPublicacion .
+  }
+}
+LIMIT 20
