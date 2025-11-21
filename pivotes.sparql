@@ -1,0 +1,43 @@
+PREFIX cplt: <http://datos.infolobby.cl/ontologia/cplt#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+
+SELECT 
+  ?s1 AS ?c1, 
+  (bif:search_excerpt(bif:vector("Pivotes"), ?o1)) AS ?c2, 
+  ?sc, 
+  STR(?fecha) AS ?fecha, 
+  STR(?nombrePasivo) AS ?nombrePasivo, 
+  STR(?datosActivos) AS ?datosActivos
+WHERE {
+  {
+    {
+      SELECT 
+        ?s1, 
+        (?sc * 3e-1) AS ?sc, 
+        ?o1, 
+        ?fecha 
+      WHERE {
+        quad map virtrdf:DefaultQuadMap {
+          GRAPH ?g {
+            ?s1 ?s1textp ?o1 .
+            ?o1 bif:contains "\"Pivotes\"" OPTION (score ?sc) .
+          }
+        }
+        ?s1 a cplt:RegistroAudiencia .
+        ?s1 cplt:registradoPor <http://datos.infolobby.cl/infolobby/institucion/nr010> .
+        ?s1 cplt:fechaEvento ?fecha .
+      }
+    }
+  }
+
+  OPTIONAL {
+    ?s1 cplt:registraFichaPasivo ?pasivoIRI .
+    ?pasivoIRI foaf:name ?nombrePasivo .
+  }
+
+  OPTIONAL {
+    ?s1 cplt:datosActivos ?datosActivos .
+  }
+}
+ORDER BY DESC(?fecha)
+
